@@ -6,6 +6,8 @@ import AddRole from './WebView/RoleManagement/AddRole';
 import EditRole from './WebView/RoleManagement/EditRole';
 import UserMaster from './WebView/UsersManagement/UserMaster';
 import AddUser from './WebView/UsersManagement/AddUser';
+import UnitMaster from './WebView/UnitManagement/UnitMaster';
+import AddUnit from './WebView/UnitManagement/AddUnit';
 import SideBar from './components/SideBar/SideBar';
 import Header from './components/Header/Header';
 import { getElevateUser } from './storage/Storage';
@@ -34,9 +36,11 @@ function PrivateLayout() {
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* Top header */}
         <Header
+          isCollapsed={isCollapsed}
           onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
           hideSideBar={hideSideBar}
           isMobile={false}
+          showMobileSidebar={false}
         />
 
         {/* Page content */}
@@ -48,6 +52,9 @@ function PrivateLayout() {
             <Route path="/users" element={<UserMaster />} />
             <Route path="/users/add" element={<AddUser />} />
             <Route path="/users/edit/:id" element={<AddUser />} />
+            <Route path="/unit" element={<UnitMaster />} />
+            <Route path="/unit/add" element={<AddUnit />} />
+            <Route path="/unit/edit/:id" element={<AddUnit />} />
             <Route path="*" element={<Navigate to="/roles-and-permission" replace />} />
           </Routes>
         </div>

@@ -18,13 +18,11 @@ function AppButton({
   isLoading = false,
   ...props
 }) {
-  const shouldUseCustomStyling = useCustomColors || (!color && backgroundColor);
-
-  const customStyle = shouldUseCustomStyling ? {
+  const customStyle = {
     backgroundColor: backgroundColor || Colors.BLACK,
     borderColor: borderColor || backgroundColor || Colors.BLACK,
     color: textColor || 'white'
-  } : {};
+  };
 
   const buttonClassName = `flex items-center gap-2 font-semibold ${className}`;
 
@@ -35,7 +33,7 @@ function AppButton({
       color={color}
       onClick={onClick}
       className={buttonClassName}
-      style={shouldUseCustomStyling ? customStyle : {}}
+      style={customStyle}
       isLoading={isLoading}
       {...props}
     >

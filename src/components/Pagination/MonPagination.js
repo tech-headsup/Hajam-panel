@@ -26,7 +26,7 @@ const paginationStyles = {
       base: "",
       color: {
         primary:
-          "[&>.rc-pagination-item-active]:bg-primary [&>.rc-pagination-item-active>a]:!text-primary-foreground [&>li.rc-pagination-item-active]:border-primary [&>.rc-pagination-item-active]:hover:border-primary [&>.rc-pagination-item-active]:focus:border-primary",
+          "[&>.rc-pagination-item-active]:!bg-gray-900 [&>.rc-pagination-item-active>a]:!text-white [&>li.rc-pagination-item-active]:!border-gray-900 [&>.rc-pagination-item-active]:hover:!border-gray-900 [&>.rc-pagination-item-active]:focus:!border-gray-900",
         secondary:
           "[&>.rc-pagination-item-active]:bg-secondary [&>.rc-pagination-item-active>a]:!text-secondary-foreground [&>li.rc-pagination-item-active]:border-secondary [&>.rc-pagination-item-active]:hover:border-secondary [&>.rc-pagination-item-active]:focus:border-secondary",
         danger:

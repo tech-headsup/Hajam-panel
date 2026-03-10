@@ -114,7 +114,13 @@ const Login = () => {
           console.log("response", response);
           setSelectedUnit(newUser?.unitIds[0])
 
-          navigate('/roles-and-permission')
+          if (response?.data?.user?.roleData?.permission?.length === 1) {
+            let path = getNavigationPath(response?.data?.user?.roleData?.permission[0].value)
+            // window.location.href = path
+          }
+          else {
+            // window.location.href = '/'
+          }
 
         } else {
           setErrors({

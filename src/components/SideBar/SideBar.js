@@ -5,7 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Shield,
-  HomeIcon,
+  MapPin,
   X,
 } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -19,10 +19,10 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
 
   const navigationItems = [
     {
-      icon: <HomeIcon className="w-5 h-5" />,
-      label: 'Dashboard',
-      to: '/',
-      module: 'dashboard',
+      icon: <MapPin className="w-5 h-5" />,
+      label: 'Unit Management',
+      to: '/unit',
+      module: 'unit',
     },
     {
       icon: <Shield className="w-5 h-5" />,
