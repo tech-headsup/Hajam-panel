@@ -12,7 +12,7 @@ export const secretKey = import.meta.env.VITE_SECRET_KEY
 
 const BaseUrl = `${Protocol}${IP}/`
 
-const GatewayBase = production ? `${Protocol}${IP}` : `${Protocol}${IP}:1010`
+const GatewayBase = production ? `${Protocol}${IP}` : `${Protocol}${IP}:8073`
 const CouponGatewayBase = couponProduction ? `${couponProtocol}${CouponIP}` : `${couponProtocol}${CouponIP}:3001`
 const FileUploadGatewayBase = import.meta.env.VITE_FILE_UPLOAD_BASE
 
