@@ -1,23 +1,22 @@
-const couponProduction = true
-const production = true
+const production = import.meta.env.VITE_PRODUCTION === 'true'
+const couponProduction = import.meta.env.VITE_COUPON_PRODUCTION === 'true'
 
-const IP = production ? "app-api.elevatelifestyle.in" : "localhost"
-const CouponIP = couponProduction ? "api.elevatelifestyle.in" : "localhost"
+const IP = import.meta.env.VITE_API_IP
+const CouponIP = import.meta.env.VITE_COUPON_IP
 
 const Protocol = production ? "https://" : "http://"
 const couponProtocol = couponProduction ? "https://" : "http://"
 
-export const projectKey = '54Kury8wYk'
-
-export const secretKey = '698301000af143f2724b5ba8'
+export const projectKey = import.meta.env.VITE_PROJECT_KEY
+export const secretKey = import.meta.env.VITE_SECRET_KEY
 
 const BaseUrl = `${Protocol}${IP}/`
 
 const GatewayBase = production ? `${Protocol}${IP}` : `${Protocol}${IP}:1010`
 const CouponGatewayBase = couponProduction ? `${couponProtocol}${CouponIP}` : `${couponProtocol}${CouponIP}:3001`
-const FileUploadGatewayBase = `https://app-api.elevatelifestyle.in`
+const FileUploadGatewayBase = import.meta.env.VITE_FILE_UPLOAD_BASE
 
-const NewFileUploadBase = `https://upload.headsupcorporation.com/api`
+const NewFileUploadBase = import.meta.env.VITE_NEW_FILE_UPLOAD_BASE
 
 // Servicessssssss
 export const UserService = '/userservice/'
@@ -56,7 +55,7 @@ export const KioskService = "/kioskservice/"
 export const cronservice = "/generalservice/"
 
 // Configuration Constants
-export const domainId = '21676'
+export const domainId = import.meta.env.VITE_DOMAIN_ID
 
 // Authentication APIs
 export const login = GatewayBase + AuthService + 'login'
