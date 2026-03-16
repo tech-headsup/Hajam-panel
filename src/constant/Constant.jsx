@@ -19,7 +19,7 @@ const FileUploadGatewayBase = `https://app-api.elevatelifestyle.in`
 
 const NewFileUploadBase = `https://upload.headsupcorporation.com/api`
 
-// Servicesssss
+// Servicessssssss
 export const UserService = '/userservice/'
 export const AuthService = '/auth/'
 export const OurBestService = '/generalservice/'
