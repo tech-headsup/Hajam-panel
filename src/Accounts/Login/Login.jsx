@@ -4,7 +4,6 @@ import { HitApi } from '../../Api/ApiHit';
 import { login } from '../../constant/Constant';
 import { setAcessToken, setElevateUser, setSelectedUnit } from '../../storage/Storage';
 import { setUserData } from '../../redux/Actions/UserAction';
-import { getNavigationPath } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -114,13 +113,7 @@ const Login = () => {
           console.log("response", response);
           setSelectedUnit(newUser?.unitIds[0])
 
-          if (response?.data?.user?.roleData?.permission?.length === 1) {
-            let path = getNavigationPath(response?.data?.user?.roleData?.permission[0].value)
-            // window.location.href = path
-          }
-          else {
-            // window.location.href = '/'
-          }
+          navigate('/unit')
 
         } else {
           setErrors({

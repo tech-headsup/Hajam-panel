@@ -137,7 +137,7 @@ const Header = ({ isCollapsed, onToggleCollapse, hideSideBar, isMobile, showMobi
             </div>
           </Popover.Trigger>
 
-          <Popover.Content>
+          <Popover.Content className="!bg-white !border !border-gray-800 !rounded-xl !shadow-xl !p-0">
             {({ setOpen }) => (
               <div className="font-sans p-4 w-80">
                 <div className="mb-4 flex items-center gap-3">

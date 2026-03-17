@@ -68,7 +68,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Navigate to="/roles-and-permission" replace /> : <Login />} />
+      <Route path="/" element={user ? <Navigate to="/unit" replace /> : <Login />} />
       <Route path="/*" element={<PrivateLayout />} />
     </Routes>
   );
