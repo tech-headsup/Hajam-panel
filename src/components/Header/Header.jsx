@@ -14,6 +14,7 @@ const Header = ({ isCollapsed, onToggleCollapse, hideSideBar, isMobile, showMobi
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnitState] = useState(null);
   const [loadingUnits, setLoadingUnits] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,14 +42,15 @@ const Header = ({ isCollapsed, onToggleCollapse, hideSideBar, isMobile, showMobi
   };
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to logout?");
-    if (confirmLogout) {
-      removeElevateUser();
-      removeAcessToken();
-      removeSelectedUnit();
-      allReduxClear(dispatch);
-      window.location.href = '/login';
-    }
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
+    removeElevateUser();
+    removeAcessToken();
+    removeSelectedUnit();
+    allReduxClear(dispatch);
+    window.location.href = '/login';
   };
 
   const handleUnitChange = (unitId) => {
@@ -226,6 +228,36 @@ const Header = ({ isCollapsed, onToggleCollapse, hideSideBar, isMobile, showMobi
           </Popover.Content>
         </Popover>
       </div>
+
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-xl shadow-2xl p-6 w-80 text-center">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-600">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">Logout</h3>
+            <p className="text-sm text-gray-500 mb-6">Are you sure you want to logout?</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

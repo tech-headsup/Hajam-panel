@@ -5,7 +5,7 @@ import Login from './Accounts/Login/Login';
 import Panel from './Panel/Panel';
 import { setUserData } from './redux/Actions/UserAction';
 import { getElevateUser } from './storage/Storage';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +51,6 @@ function App() {
           element={UserReducer.user ? <Panel /> : <Navigate to="/login" />}
         />
       </Routes>
-      <Toaster />
     </div>
   );
 }
