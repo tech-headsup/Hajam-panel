@@ -36,6 +36,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
       to: '/users',
       module: 'user',
     },
+
   ];
 
   const getVisibleNavigationItems = () => {
@@ -69,9 +70,8 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
 
   return (
     <div
-      className={`h-full bg-black text-white flex flex-col flex-shrink-0 ${
-        isCollapsed && !isMobile ? 'w-16' : 'w-64'
-      }`}
+      className={`h-full bg-black text-white flex flex-col flex-shrink-0 ${isCollapsed && !isMobile ? 'w-16' : 'w-64'
+        }`}
     >
       {/* Header: Logo + Collapse button */}
       <div className="flex items-center justify-between p-4 border-b border-gray-700 flex-shrink-0">
@@ -103,8 +103,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
                     to={item.to}
                     onClick={handleNavClick}
                     className={({ isActive }) =>
-                      `flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${
-                        isActive ? 'bg-gray-700' : ''
+                      `flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
                       }`
                     }
                   >
@@ -116,8 +115,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
                   to={item.to}
                   onClick={handleNavClick}
                   className={({ isActive }) =>
-                    `flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${
-                      isActive ? 'bg-gray-700' : ''
+                    `flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
                     }`
                   }
                 >
