@@ -272,6 +272,19 @@ export const SeperAdmiinPermission = () =>
         },
     ];
 
+export const customerTypeOptions = [
+    { value: "Walk In", label: "Walk In" },
+    { value: "Non Walk In", label: "Non Walk In" }
+];
+
+export const ageGroupOptions = [
+    { value: "Child (0-12)", label: "Child (0-12)" },
+    { value: "Teen (13-17)", label: "Teen (13-17)" },
+    { value: "Young Adult (18-25)", label: "Young Adult (18-25)" },
+    { value: "Adult (26-54)", label: "Adult (26-54)" },
+    { value: "Senior (55+)", label: "Senior (55+)" }
+];
+
 export const dashboardOptions = [
     { value: 'today', label: 'Today' },
     { value: 'currentWeek', label: 'Weekly' },

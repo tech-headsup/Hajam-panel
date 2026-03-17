@@ -6,6 +6,8 @@ import {
   ChevronRight,
   Shield,
   MapPin,
+  UserCheck,
+  Clock,
   X,
 } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -35,6 +37,18 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
       label: 'User Management',
       to: '/users',
       module: 'user',
+    },
+    {
+      icon: <UserCheck className="w-5 h-5" />,
+      label: 'Client Management',
+      to: '/client',
+      module: 'client',
+    },
+    {
+      icon: <Clock className="w-5 h-5" />,
+      label: 'Attendance Management',
+      to: '/attendance',
+      module: 'staff',
     },
 
   ];
