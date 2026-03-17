@@ -7,6 +7,9 @@ import UserMaster from '../WebView/UsersManagement/UserMaster';
 import AddUser from '../WebView/UsersManagement/AddUser';
 import UnitMaster from '../WebView/UnitManagement/UnitMaster';
 import AddUnit from '../WebView/UnitManagement/AddUnit';
+import ClientMaster from '../WebView/ClientManagement/ClientMaster';
+import AddClient from '../WebView/ClientManagement/AddClient';
+import AttendanceMaster from '../WebView/AttendanceManagement/AttendanceMaster';
 
 function PannelRoutes() {
   return (
@@ -20,6 +23,10 @@ function PannelRoutes() {
       <Route path="/unit" element={<UnitMaster />} />
       <Route path="/unit/add" element={<AddUnit />} />
       <Route path="/unit/edit/:id" element={<AddUnit />} />
+      <Route path="/client" element={<ClientMaster />} />
+      <Route path="/client/add" element={<AddClient />} />
+      <Route path="/client/edit/:id" element={<AddClient />} />
+      <Route path="/attendance" element={<AttendanceMaster />} />
       <Route path="*" element={<Navigate to="/unit" replace />} />
     </Routes>
   );
