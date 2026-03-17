@@ -47,6 +47,16 @@ function AppInput({
   const handleChange = (e) => {
     let value = e.target.value;
 
+    // Strip non-digit characters when num mode is enabled
+    if (num) {
+      value = value.replace(/\D/g, '');
+    }
+
+    // Strip digit characters when str mode is enabled
+    if (str) {
+      value = value.replace(/\d/g, '');
+    }
+
     // Convert to number if input type is number
     if (type === 'number') {
       // Handle empty string or non-numeric values

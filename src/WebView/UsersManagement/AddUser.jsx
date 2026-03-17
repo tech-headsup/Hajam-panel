@@ -294,6 +294,8 @@ function AddUser() {
                         placeholder="Enter contact number"
                         name="phoneNumber"
                         important={true}
+                        num={true}
+                        maxLength={10}
                         error={hasError('phoneNumber', ApiReducer)}
                         errormsg={getErrorMsg('phoneNumber', ApiReducer)}
                         disabled={submitLoading}

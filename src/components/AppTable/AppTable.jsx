@@ -315,7 +315,7 @@ function AppTable({
 
                             return (
                               <Table.Cell key={`cell-${colIndex}`} className={cn("px-3 py-2", header.align ? `text-${header.align}` : '')}>
-                                <div onClick={() => onRowClick && onRowClick(row, rowIndex)} className="text-xs sm:text-sm text-gray-900 truncate max-w-[150px]" title={cellValue}>
+                                <div onClick={() => onRowClick && onRowClick(row, rowIndex)} className="text-xs sm:text-sm text-gray-900" title={cellValue}>
                                   {typeof header.render === 'function' ? header.render(cellValue, row, rowIndex) : cellValue}
                                 </div>
                               </Table.Cell>
