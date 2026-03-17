@@ -2,7 +2,7 @@ const production = import.meta.env.VITE_PRODUCTION === 'true'
 const couponProduction = import.meta.env.VITE_COUPON_PRODUCTION === 'true'
 
 const IP = import.meta.env.VITE_API_IP
-const CouponIP = import.meta.env.VITE_COUPON_IP
+const CouponIP = import.meta.env.VITE_COUPON_IP///
 
 const Protocol = production ? "https://" : "http://"
 const couponProtocol = couponProduction ? "https://" : "http://"
