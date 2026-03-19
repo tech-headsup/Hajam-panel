@@ -13,6 +13,12 @@ import AddClient from '../WebView/ClientManagement/AddClient';
 import AttendanceMaster from '../WebView/AttendanceManagement/AttendanceMaster';
 import StaffDashboard from '../WebView/StaffDashboard/StaffDashboard/StaffDashboard.jsx';
 import StaffAttendence from '../WebView/StaffDashboard/StaffAttendence/StaffAttendence.jsx';
+import Products from '../WebView/Products/Products.jsx';
+import AddProducts from '../WebView/Products/AddProducts.jsx';
+import ProductMaster from '../WebView/ProductMaster/ProductMaster.jsx';
+import GeneralMaster from '../WebView/GeneralMaster/GeneralMaster.jsx';
+import AddGeneralMaster from '../WebView/GeneralMaster/AddGeneralMaster.jsx';
+import InventoryManagement from '../WebView/InventoryManagement/InventoryManagement.jsx';
 import MasterService from '../WebView/MasterService/MasterService.jsx';
 import ServiceDashboard from '../WebView/ServiceDashboard/ServiceDashboard.jsx';
 import HairColorServices from '../WebView/HairColorManagement/HairColorServices.jsx';
@@ -48,6 +54,14 @@ function PannelRoutes() {
       <Route path="/attendance" element={<AttendanceMaster />} />
       <Route path="/staffdashboard" element={<StaffDashboard />} />
       <Route path="/staffdashboard/attendance" element={<StaffAttendence />} />
+      <Route path="/products" element={<Products />} />
+      <Route path="/products/add" element={<AddProducts />} />
+      <Route path="/products/edit/:id" element={<AddProducts />} />
+      <Route path="/master-products" element={<ProductMaster />} />
+      <Route path="/generalmaster" element={<GeneralMaster />} />
+      <Route path="/generalmaster/add" element={<AddGeneralMaster />} />
+      <Route path="/generalmaster/edit/:id" element={<AddGeneralMaster />} />
+      <Route path="/inventory-management" element={<InventoryManagement />} />
       <Route path="/master-services" element={<MasterService />} />
       <Route path="/service-dashboard" element={<ServiceDashboard />} />
       <Route path="/service-color" element={<HairColorServices />} />
