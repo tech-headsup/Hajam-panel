@@ -13,7 +13,6 @@ import {
 import { useDispatch } from 'react-redux';
 import { hasPermission } from '../../utils/permissionUtils';
 import { setPagination } from '../../redux/Actions/TableAction';
-import { Tooltip } from 'rizzui';
 
 const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose, isMobile }) => {
   const dispatch = useDispatch();
@@ -84,7 +83,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
 
   return (
     <div
-      className={`h-full bg-black text-white flex flex-col flex-shrink-0 ${isCollapsed && !isMobile ? 'w-16' : 'w-64'
+      className={`h-full bg-black text-white flex flex-col flex-shrink-0 ${isCollapsed && !isMobile ? 'w-20' : 'w-64'
         }`}
     >
       {/* Header: Logo + Collapse button */}
@@ -112,18 +111,16 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
           {visibleNavigationItems.map((item) => (
             <li key={item.label}>
               {isCollapsed && !isMobile ? (
-                <Tooltip content={item.label} placement="right">
-                  <NavLink
-                    to={item.to}
-                    onClick={handleNavClick}
-                    className={({ isActive }) =>
-                      `flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
-                      }`
-                    }
-                  >
-                    {item.icon}
-                  </NavLink>
-                </Tooltip>
+                <NavLink
+                  to={item.to}
+                  onClick={handleNavClick}
+                  className={({ isActive }) =>
+                    `flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
+                    }`
+                  }
+                >
+                  {item.icon}
+                </NavLink>
               ) : (
                 <NavLink
                   to={item.to}
