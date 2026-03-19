@@ -8,7 +8,7 @@ const Protocol = production ? "https://" : "http://"
 const couponProtocol = couponProduction ? "https://" : "http://"
 
 export const projectKey = import.meta.env.VITE_PROJECT_KEY
-export const secretKey = import.meta.env.VITE_SECRET_KEY
+export const secretKey = import.meta.env.VITE_SECRET_KEY//
 
 const BaseUrl = `${Protocol}${IP}/`
 
