@@ -58,7 +58,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
       icon: <Clock className="w-5 h-5" />,
       label: 'Attendance Management',
       to: '/attendance',
-      module: 'attendance',
+      module: 'attendance',//
     },
     {
       icon: <Wrench className="w-5 h-5" />,
