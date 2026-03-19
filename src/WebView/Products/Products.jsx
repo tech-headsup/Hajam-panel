@@ -181,7 +181,7 @@ function Products() {
 
         if (row?._id || row?.id) {
             const productId = row._id || row.id;
-            navigate(`/products/editProduct/${productId}`);
+            navigate(`/products/edit/${productId}`);
         } else {
             console.error('Product ID not found in row:', row);
             toast.error('Unable to edit product: ID not found');
@@ -470,7 +470,7 @@ function Products() {
                     isLoading={isLoading || isSearching}
                     emptyMessage={error ? "Failed to load products. Please try again." : "No products found. Click 'Add Product' to get started."}
                     buttonText={canAddProducts && "Add Product"}
-                    navigateTo={canAddProducts && "/addProduct"}
+                    navigateTo={canAddProducts && "/products/add"}
                     TableSearch={
                         <TableSearch
                             options={options}

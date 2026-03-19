@@ -13,6 +13,8 @@ import {
   Wrench,
   Palette,
   Package,
+  Settings2,
+  Warehouse,
   X,
 } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -102,6 +104,25 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
           label: 'Color Service',
           to: '/service-color',
           module: 'services',
+        },
+      ],
+    },
+    {
+      icon: <Settings2 className="w-5 h-5" />,
+      label: 'General Service',
+      to: '/generalmaster',
+      module: 'generalMaster',
+    },
+    {
+      icon: <Package className="w-5 h-5" />,
+      label: 'Inventory Management',
+      module: 'inventory',
+      children: [
+        {
+          icon: <Warehouse className="w-4 h-4" />,
+          label: 'Inventory',
+          to: '/inventory-management',
+          module: 'inventory',
         },
       ],
     },
