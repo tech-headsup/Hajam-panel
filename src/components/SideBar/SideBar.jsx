@@ -12,6 +12,7 @@ import {
   Clock,
   Wrench,
   Palette,
+  Package,
   X,
 } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -59,6 +60,25 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
       label: 'Attendance Management',
       to: '/attendance',
       module: 'attendance',
+    },
+    {
+      icon: <Package className="w-5 h-5" />,
+      label: 'Products',
+      module: 'product',
+      children: [
+        {
+          icon: <Package className="w-4 h-4" />,
+          label: 'All Products',
+          to: '/products',
+          module: 'product',
+        },
+        {
+          icon: <Package className="w-4 h-4" />,
+          label: 'Master Products',
+          to: '/master-products',
+          module: 'product',
+        },
+      ],
     },
     {
       icon: <Wrench className="w-5 h-5" />,

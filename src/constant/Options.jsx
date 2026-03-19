@@ -64,6 +64,30 @@ export const workingHours = [
     { value: "12", label: "12 Hours" }
 ];
 
+export const unitOptions = [
+    { value: "L", label: "Liter (L)" },
+    { value: "ml", label: "Milliliter (ml)" },
+    { value: "gal", label: "Gallon (gal)" },
+    { value: "fl_oz", label: "Fluid Ounce (fl oz)" },
+    { value: "kg", label: "Kilogram (kg)" },
+    { value: "g", label: "Gram (g)" },
+    { value: "lb", label: "Pound (lb)" },
+    { value: "oz", label: "Ounce (oz)" },
+    { value: "mg", label: "Milligram (mg)" },
+    { value: "m", label: "Meter (m)" },
+    { value: "cm", label: "Centimeter (cm)" },
+    { value: "mm", label: "Millimeter (mm)" },
+    { value: "in", label: "Inch (in)" },
+    { value: "ft", label: "Foot (ft)" },
+    { value: "yd", label: "Yard (yd)" },
+    { value: "pcs", label: "Pieces (pcs)" },
+    { value: "pack", label: "Pack" },
+    { value: "box", label: "Box" },
+    { value: "bottle", label: "Bottle" },
+    { value: "tube", label: "Tube" },
+    { value: "sachet", label: "Sachet" }
+];
+
 export const statusOptions = [
     { value: "Active", label: "Active" },
     { value: "Inactive", label: "Inactive" }
