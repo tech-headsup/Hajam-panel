@@ -104,3 +104,134 @@ export const getNavigationPath = (module) => {
   };
   return pathMap[module] || '/';
 };
+
+const generateDeviceFingerprint = () => {
+  try {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    if (ctx) {
+      ctx.textBaseline = 'top';
+      ctx.font = '14px Arial';
+      ctx.fillText('Device fingerprint', 2, 2);
+    }
+
+    const fingerprint = [
+      navigator.userAgent,
+      navigator.language,
+      navigator.platform,
+      `${window.screen.width}x${window.screen.height}`,
+      window.screen.colorDepth,
+      new Date().getTimezoneOffset(),
+      navigator.hardwareConcurrency || 'unknown',
+      navigator.deviceMemory || 'unknown',
+      canvas.toDataURL().slice(-50),
+    ].join('|');
+
+    let hash = 0;
+    for (let i = 0; i < fingerprint.length; i += 1) {
+      const char = fingerprint.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash &= hash;
+    }
+
+    return `DEV_${Math.abs(hash).toString(16).toUpperCase()}`;
+  } catch (error) {
+    return `DEV_${Date.now().toString(36).toUpperCase()}${Math.random().toString(36).slice(2).toUpperCase()}`;
+  }
+};
+
+const getBrowserInfo = () => {
+  const userAgent = navigator.userAgent;
+
+  if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) return 'Chrome';
+  if (userAgent.includes('Firefox')) return 'Firefox';
+  if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) return 'Safari';
+  if (userAgent.includes('Edg')) return 'Edge';
+  if (userAgent.includes('Opera') || userAgent.includes('OPR')) return 'Opera';
+  return 'Unknown';
+};
+
+const getDeviceType = () => {
+  const userAgent = navigator.userAgent;
+
+  if (/tablet|ipad|playbook|silk/i.test(userAgent)) return 'Tablet';
+  if (/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile/i.test(userAgent)) {
+    return 'Mobile';
+  }
+  return 'Desktop';
+};
+
+const getOperatingSystem = () => {
+  const userAgent = navigator.userAgent;
+  const platform = navigator.platform;
+
+  if (/Win/.test(platform)) return 'Windows';
+  if (/Mac/.test(platform)) return 'macOS';
+  if (/Linux/.test(platform)) return 'Linux';
+  if (/iPhone|iPad|iPod/.test(userAgent)) return 'iOS';
+  if (/Android/.test(userAgent)) return 'Android';
+  return 'Unknown';
+};
+
+const getHardwareInfo = () => ({
+  cores: navigator.hardwareConcurrency || 'unknown',
+  memory: navigator.deviceMemory || 'unknown',
+  screen: `${window.screen.width}x${window.screen.height}`,
+  colorDepth: window.screen.colorDepth,
+  pixelRatio: window.devicePixelRatio || 1,
+  availableScreenSize: `${window.screen.availWidth}x${window.screen.availHeight}`,
+});
+
+const getBrowserCapabilities = () => ({
+  webGL: !!window.WebGLRenderingContext,
+  touchSupport: 'ontouchstart' in window,
+  cookieEnabled: navigator.cookieEnabled,
+  localStorage: !!window.localStorage,
+  sessionStorage: !!window.sessionStorage,
+  indexedDB: !!window.indexedDB,
+  webWorkers: !!window.Worker,
+  serviceWorker: 'serviceWorker' in navigator,
+});
+
+export const getDeviceInfo = () => {
+  const deviceFingerprint = generateDeviceFingerprint();
+
+  return [{
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language,
+    cookieEnabled: navigator.cookieEnabled,
+    onLine: navigator.onLine,
+    screenWidth: window.screen.width,
+    screenHeight: window.screen.height,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    timestamp: new Date().toISOString(),
+    browser: getBrowserInfo(),
+    deviceType: getDeviceType(),
+    operatingSystem: getOperatingSystem(),
+    deviceFingerprint,
+    deviceId: deviceFingerprint,
+    deviceMacAddress: deviceFingerprint,
+    hardwareInfo: getHardwareInfo(),
+    browserCapabilities: getBrowserCapabilities(),
+  }];
+};
+
+export const perMinuteSalary = (userData) => {
+  const monthlySalary = Number(userData?.salary) || 0;
+  const dailyWorkingHours = parseInt(userData?.workingHours, 10) || 0;
+
+  if (!monthlySalary || !dailyWorkingHours) {
+    return 0;
+  }
+
+  const workingDaysPerMonth = 26;
+  const totalWorkingMinutes = workingDaysPerMonth * dailyWorkingHours * 60;
+
+  if (!totalWorkingMinutes) {
+    return 0;
+  }
+
+  return monthlySalary / totalWorkingMinutes;
+};

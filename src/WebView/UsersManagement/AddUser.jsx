@@ -38,6 +38,7 @@ function AddUser() {
 
     const url = window.location.pathname;
     const urlId = url.split('/')[3];
+    const registeredDeviceId = ApiReducer?.apiJson?.deviceMacAddress || ApiReducer?.apiJson?.deviceFingerprint || '';
 
     useEffect(() => {
         if (urlId && urlId !== 'add') {
@@ -147,6 +148,13 @@ function AddUser() {
                     workingHours: userData?.workingHours,
                     target: userData?.target,
                     deviceMacAddress: userData?.deviceMacAddress,
+                    deviceFingerprint: userData?.deviceFingerprint,
+                    deviceId: userData?.deviceId,
+                    deviceType: userData?.deviceType,
+                    browser: userData?.browser,
+                    operatingSystem: userData?.operatingSystem,
+                    hardwareInfo: userData?.hardwareInfo,
+                    browserCapabilities: userData?.browserCapabilities,
                     pin: userData?.pin || '',
                     status: userData?.status || 'Active',
                     tdsEligible: userData?.tdsEligible || false,
@@ -209,7 +217,14 @@ function AddUser() {
         try {
             const revokeData = {
                 _id: urlId,
-                deviceMacAddress: null
+                deviceMacAddress: null,
+                deviceFingerprint: null,
+                deviceId: null,
+                deviceType: null,
+                browser: null,
+                operatingSystem: null,
+                hardwareInfo: null,
+                browserCapabilities: null,
             };
 
             const response = await HitApi(revokeData, updateUser);
@@ -219,7 +234,14 @@ function AddUser() {
                 // Update the local state
                 dispatch(setApiJson({
                     ...ApiReducer.apiJson,
-                    deviceMacAddress: null
+                    deviceMacAddress: null,
+                    deviceFingerprint: null,
+                    deviceId: null,
+                    deviceType: null,
+                    browser: null,
+                    operatingSystem: null,
+                    hardwareInfo: null,
+                    browserCapabilities: null,
                 }));
             } else {
                 toast.error(response?.message || 'Failed to revoke MAC address.');
@@ -461,7 +483,7 @@ function AddUser() {
                             <div className="flex items-start justify-between">
                                 <div className="flex-1">
                                     <h4 className="font-medium text-gray-900 mb-2">Registered Device</h4>
-                                    {ApiReducer?.apiJson?.deviceMacAddress ? (
+                                    {registeredDeviceId ? (
                                         <div className="space-y-2">
                                             <div className="flex items-center gap-2">
                                                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
@@ -470,7 +492,7 @@ function AddUser() {
                                             <div className="bg-white rounded p-3 border">
                                                 <div className="text-xs text-gray-500 mb-1">MAC Address:</div>
                                                 <div className="font-mono text-sm text-gray-900">
-                                                    {ApiReducer?.apiJson?.deviceMacAddress}
+                                                    {registeredDeviceId}
                                                 </div>
                                             </div>
                                             <div className="bg-yellow-50 border border-yellow-200 rounded p-3">
@@ -500,7 +522,7 @@ function AddUser() {
                                     )}
                                 </div>
 
-                                {ApiReducer?.apiJson?.deviceMacAddress && (
+                                {registeredDeviceId && (
                                     <div className="ml-4">
                                         <button
                                             onClick={handleRevokeMacAddress}

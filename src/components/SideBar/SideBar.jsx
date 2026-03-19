@@ -45,6 +45,12 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
     },
     {
       icon: <Clock className="w-5 h-5" />,
+      label: 'Staff Dashboard',
+      to: '/staffdashboard',
+      module: 'staff',
+    },
+    {
+      icon: <Clock className="w-5 h-5" />,
       label: 'Attendance Management',
       to: '/attendance',
       module: 'staff',
@@ -83,7 +89,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
 
   return (
     <div
-      className={`h-full bg-black text-white flex flex-col flex-shrink-0 ${isCollapsed && !isMobile ? 'w-20' : 'w-64'
+      className={`h-full bg-black text-white flex flex-col flex-shrink-0 ${isCollapsed && !isMobile ? 'w-16' : 'w-64'
         }`}
     >
       {/* Header: Logo + Collapse button */}
