@@ -390,6 +390,18 @@ export const AllPermissionList = [
         ],
         child: []
     },
+    {
+        value: "attendance",
+        url: [],
+        permission: [
+            {
+                read: { allowed: false, url: [searchMedia, searchRole, searchUnit, searchGeneralMaster, searchAdvertisement] },
+                write: { allowed: false, url: [updateAdvertisement, updateMedia] },
+                delete: { allowed: false, url: [deleteAdvertisement, deleteMedia] },
+            }
+        ],
+        child: []
+    },
 
 
 

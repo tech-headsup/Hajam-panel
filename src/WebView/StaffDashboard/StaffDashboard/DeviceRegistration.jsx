@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Smartphone, Shield, CheckCircle, AlertCircle, Wifi, Monitor } from 'lucide-react';
-import { getElevateUser } from '../../../storage/Storage';
+import { getElevateUser, setElevateUser } from '../../../storage/Storage';
 import { HitApi } from '../../../Api/ApiHit';
 import { updateUser } from '../../../constant/Constant';
 import { getDeviceInfo } from '../../../utils/utils';
 
-function DeviceRegistration() {
+function DeviceRegistration({ onRegistrationSuccess }) {
   const [deviceName, setDeviceName] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -97,8 +97,17 @@ function DeviceRegistration() {
 
       if (response.success || response.statusCode === 200) {
         console.log('Device registered successfully:', response);
+        const updatedUser = {
+          ...user,
+          ...updateData,
+        };
+        setElevateUser(updatedUser);
+        setUser(updatedUser);
         setRegistrationStatus('success');
         setIsRegistered(true);
+        if (typeof onRegistrationSuccess === 'function') {
+          onRegistrationSuccess(updatedUser);
+        }
       } else {
         console.error('Device registration failed:', response.message);
         setRegistrationStatus('error');

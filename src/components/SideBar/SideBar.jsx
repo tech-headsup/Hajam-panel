@@ -4,15 +4,20 @@ import {
   Users,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   Shield,
   MapPin,
   UserCheck,
   Clock,
+  Wrench,
+  Palette,
   X,
 } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { hasPermission } from '../../utils/permissionUtils';
 import { setPagination } from '../../redux/Actions/TableAction';
+import { Tooltip } from 'rizzui';
 
 const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose, isMobile }) => {
   const dispatch = useDispatch();
@@ -53,7 +58,32 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
       icon: <Clock className="w-5 h-5" />,
       label: 'Attendance Management',
       to: '/attendance',
-      module: 'staff',
+      module: 'attendance',
+    },
+    {
+      icon: <Wrench className="w-5 h-5" />,
+      label: 'Services',
+      module: 'services',
+      children: [
+        {
+          icon: <Wrench className="w-4 h-4" />,
+          label: 'Master Services',
+          to: '/master-services',
+          module: 'services',
+        },
+        {
+          icon: <Wrench className="w-4 h-4" />,
+          label: 'Service Dashboard',
+          to: '/service-dashboard',
+          module: 'services',
+        },
+        {
+          icon: <Palette className="w-4 h-4" />,
+          label: 'Color Service',
+          to: '/service-color',
+          module: 'services',
+        },
+      ],
     },
 
   ];
@@ -81,6 +111,10 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
   useEffect(() => {
     setHideSideBar(visibleNavigationItems.length <= 1);
   }, [visibleNavigationItems.length, setHideSideBar]);
+
+  const toggleExpand = (label) => {
+    setExpandedItem(expandedItem === label ? null : label);
+  };
 
   const handleNavClick = () => {
     if (isMobile && onMobileClose) onMobileClose();
@@ -116,30 +150,84 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
         <ul className="space-y-1 px-2 h-full overflow-y-auto pb-4">
           {visibleNavigationItems.map((item) => (
             <li key={item.label}>
-              {isCollapsed && !isMobile ? (
-                <NavLink
-                  to={item.to}
-                  onClick={handleNavClick}
-                  className={({ isActive }) =>
-                    `flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
-                    }`
-                  }
-                >
-                  {item.icon}
-                </NavLink>
-              ) : (
-                <NavLink
-                  to={item.to}
-                  onClick={handleNavClick}
-                  className={({ isActive }) =>
-                    `flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
-                    }`
-                  }
-                >
-                  {item.icon}
-                  <span className="ml-3 text-sm">{item.label}</span>
-                </NavLink>
-              )}
+              <div className="flex flex-col">
+                {item.children ? (
+                  isCollapsed && !isMobile ? (
+                    <Tooltip content={item.label} placement="right">
+                      <div
+                        className="flex items-center justify-center p-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors"
+                        onClick={() => toggleExpand(item.label)}
+                      >
+                        {item.icon}
+                      </div>
+                    </Tooltip>
+                  ) : (
+                    <div
+                      className="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors"
+                      onClick={() => toggleExpand(item.label)}
+                    >
+                      <div className="flex items-center">
+                        {item.icon}
+                        <span className="ml-3 text-sm">{item.label}</span>
+                      </div>
+                      <div className="ml-2">
+                        {expandedItem === item.label ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
+                        )}
+                      </div>
+                    </div>
+                  )
+                ) : (
+                  isCollapsed && !isMobile ? (
+                    <Tooltip content={item.label} placement="right">
+                      <NavLink
+                        to={item.to}
+                        onClick={handleNavClick}
+                        className={({ isActive }) =>
+                          `flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
+                          }`
+                        }
+                      >
+                        {item.icon}
+                      </NavLink>
+                    </Tooltip>
+                  ) : (
+                    <NavLink
+                      to={item.to}
+                      onClick={handleNavClick}
+                      className={({ isActive }) =>
+                        `flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700' : ''
+                        }`
+                      }
+                    >
+                      {item.icon}
+                      <span className="ml-3 text-sm">{item.label}</span>
+                    </NavLink>
+                  )
+                )}
+
+                {(!isCollapsed || isMobile) && item.children && expandedItem === item.label && (
+                  <ul className="ml-4 mt-2 space-y-1">
+                    {item.children.map((child) => (
+                      <li key={child.label}>
+                        <NavLink
+                          to={child.to}
+                          onClick={handleNavClick}
+                          className={({ isActive }) =>
+                            `flex items-center p-2 text-sm text-gray-300 rounded-lg hover:bg-gray-700 transition-colors ${isActive ? 'bg-gray-700 text-white' : ''
+                            }`
+                          }
+                        >
+                          {child.icon}
+                          <span className="ml-3">{child.label}</span>
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </li>
           ))}
         </ul>

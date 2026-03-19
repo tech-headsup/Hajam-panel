@@ -258,6 +258,47 @@ export const searchClosing = GatewayBase + closingService + 'searchClosing'
 
 // Expense service
 export const addExpense = GatewayBase + expenseService + 'addExpense'
+// Category Management
+export const addCategory = GatewayBase + GeneralService + 'addCategory'
+export const searchCategory = GatewayBase + GeneralService + 'searchCategory'
+export const updateCategory = GatewayBase + GeneralService + 'updateCategory'
+export const deleteCategory = GatewayBase + GeneralService + 'deleteCategory'
+export const transferCategory = GatewayBase + GeneralService + 'transferCategory'
+export const bulkTransferCategory = GatewayBase + GeneralService + 'bulkTransferCategory'
+
+// SubCategory Management
+export const addSubCategory = GatewayBase + GeneralService + 'addSubCategory'
+export const searchSubCategory = GatewayBase + GeneralService + 'searchSubCategory'
+export const updateSubCategory = GatewayBase + GeneralService + 'updateSubCategory'
+export const deleteSubCategory = GatewayBase + GeneralService + 'deleteSubCategory'
+export const transferSubCategory = GatewayBase + GeneralService + 'transferSubCategory'
+export const bulkTransferSubCategory = GatewayBase + GeneralService + 'bulkTransferSubCategory'
+
+// Service Management
+export const addService = GatewayBase + GeneralService + 'addService'
+export const searchService = GatewayBase + GeneralService + 'searchService'
+export const updateService = GatewayBase + GeneralService + 'updateService'
+export const deleteService = GatewayBase + GeneralService + 'deleteService'
+export const transferService = GatewayBase + GeneralService + 'transferService'
+export const bulkTransferService = GatewayBase + GeneralService + 'bulkTransferService'
+
+// Hair Color Service Management
+export const addHairColorService = GatewayBase + GeneralService + 'addHairColorService'
+export const searchHairColorService = GatewayBase + GeneralService + 'searchHairColorService'
+export const updateHairColorService = GatewayBase + GeneralService + 'updateHairColorService'
+export const deleteHairColorService = GatewayBase + GeneralService + 'deleteHairColorService'
+
+// Group Management
+export const addGroup = GatewayBase + GeneralService + 'addGroup'
+export const searchGroup = GatewayBase + GeneralService + 'searchGroup'
+export const updateGroup = GatewayBase + GeneralService + 'updateGroup'
+export const deleteGroup = GatewayBase + GeneralService + 'deleteGroup'
+
+// Product hierarchy lookups for color services
+export const searchProductGroup = GatewayBase + GeneralService + 'searchProductGroup'
+export const searchProductCategory = GatewayBase + GeneralService + 'searchProductCategory'
+export const searchProductSubCategory = GatewayBase + GeneralService + 'searchProductSubCategory'
+export const searchProductBrand = GatewayBase + GeneralService + 'searchProductBrand'
 export const updateExpense = GatewayBase + expenseService + 'updateExpense'
 export const deleteExpense = GatewayBase + expenseService + 'deleteExpense'
 export const searchExpense = GatewayBase + expenseService + 'searchExpense'

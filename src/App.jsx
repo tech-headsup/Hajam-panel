@@ -7,6 +7,17 @@ import { setUserData } from './redux/Actions/UserAction';
 import { getElevateUser } from './storage/Storage';
 import toast from 'react-hot-toast';
 
+const getDefaultRouteForUser = (user) => {
+  const roleType = user?.roleData?.roleType;
+  const userType = user?.userType;
+
+  if (roleType === 'Staff' && userType === 'Staff') {
+    return '/staffdashboard';
+  }
+
+  return '/unit';
+};
+
 function App() {
   const dispatch = useDispatch();
   const UserReducer = useSelector(state => state.UserReducer);
@@ -43,7 +54,10 @@ function App() {
     <div className="min-h-screen">
       <Routes>
         {/* Public routes */}
-        <Route path="/login" element={UserReducer.user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="/login"
+          element={UserReducer.user ? <Navigate to={getDefaultRouteForUser(UserReducer.user)} replace /> : <Login />}
+        />
 
         {/* Protected routes */}
         <Route

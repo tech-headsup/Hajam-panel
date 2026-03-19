@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { getElevateUser } from '../storage/Storage';
 import RoleMaster from '../WebView/RoleManagement/RoleMaster';
 import AddRole from '../WebView/RoleManagement/AddRole';
 import EditRole from '../WebView/RoleManagement/EditRole';
@@ -12,6 +13,22 @@ import AddClient from '../WebView/ClientManagement/AddClient';
 import AttendanceMaster from '../WebView/AttendanceManagement/AttendanceMaster';
 import StaffDashboard from '../WebView/StaffDashboard/StaffDashboard/StaffDashboard.jsx';
 import StaffAttendence from '../WebView/StaffDashboard/StaffAttendence/StaffAttendence.jsx';
+import MasterService from '../WebView/MasterService/MasterService.jsx';
+import ServiceDashboard from '../WebView/ServiceDashboard/ServiceDashboard.jsx';
+import HairColorServices from '../WebView/HairColorManagement/HairColorServices.jsx';
+import HairColorManagement from '../WebView/HairColorManagement/HairColorManagement.jsx';
+
+const getDefaultRouteForUser = () => {
+  const user = getElevateUser();
+  const roleType = user?.roleData?.roleType;
+  const userType = user?.userType;
+
+  if (roleType === 'Staff' && userType === 'Staff') {
+    return '/staffdashboard';
+  }
+
+  return '/unit';
+};
 
 function PannelRoutes() {
   return (
@@ -31,7 +48,12 @@ function PannelRoutes() {
       <Route path="/attendance" element={<AttendanceMaster />} />
       <Route path="/staffdashboard" element={<StaffDashboard />} />
       <Route path="/staffdashboard/attendance" element={<StaffAttendence />} />
-      <Route path="*" element={<Navigate to="/unit" replace />} />
+      <Route path="/master-services" element={<MasterService />} />
+      <Route path="/service-dashboard" element={<ServiceDashboard />} />
+      <Route path="/service-color" element={<HairColorServices />} />
+      <Route path="/service-color/add" element={<HairColorManagement />} />
+      <Route path="/service-color/edit/:id" element={<HairColorManagement />} />
+      <Route path="*" element={<Navigate to={getDefaultRouteForUser()} replace />} />
     </Routes>
   );
 }

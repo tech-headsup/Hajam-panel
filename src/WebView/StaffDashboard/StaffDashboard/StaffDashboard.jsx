@@ -12,41 +12,45 @@ function StaffDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [workingTime, setWorkingTime] = useState('');
 
+  const checkDeviceAuthorization = (overrideUser = null) => {
+    try {
+      const userData = overrideUser || getElevateUser();
+
+      const deviceInfoArray = getDeviceInfo();
+      const currentDevice = deviceInfoArray[0];
+      const currentFingerprint = currentDevice.deviceFingerprint;
+
+      setUser(userData);
+      setCurrentDeviceFingerprint(currentFingerprint);
+
+      const registeredDeviceFingerprint = userData?.deviceMacAddress || userData?.deviceFingerprint;
+      const deviceMatches = registeredDeviceFingerprint === currentFingerprint;
+
+      console.log('Device authorization check:', {
+        currentFingerprint,
+        registeredDeviceFingerprint,
+        deviceMatches,
+        hasRegisteredDevice: !!registeredDeviceFingerprint
+      });
+
+      setIsDeviceAuthorized(Boolean(registeredDeviceFingerprint && deviceMatches));
+    } catch (error) {
+      console.error('Error checking device authorization:', error);
+      setIsDeviceAuthorized(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const checkDeviceAuthorization = () => {
-      try {
-        const userData = getElevateUser();
-
-        // Get current device fingerprint using enhanced utils
-        const deviceInfoArray = getDeviceInfo();
-        const currentDevice = deviceInfoArray[0];
-        const currentFingerprint = currentDevice.deviceFingerprint;
-
-        setUser(userData);
-        setCurrentDeviceFingerprint(currentFingerprint);
-
-        // Check if user has registered device fingerprint and it matches current device
-        const registeredDeviceFingerprint = userData?.deviceMacAddress || userData?.deviceFingerprint;
-        const deviceMatches = registeredDeviceFingerprint === currentFingerprint;
-
-        console.log('Device authorization check:', {
-          currentFingerprint,
-          registeredDeviceFingerprint,
-          deviceMatches,
-          hasRegisteredDevice: !!registeredDeviceFingerprint
-        });
-
-        setIsDeviceAuthorized(registeredDeviceFingerprint && deviceMatches);
-      } catch (error) {
-        console.error('Error checking device authorization:', error);
-        setIsDeviceAuthorized(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
+    setIsLoading(true);
     checkDeviceAuthorization();
   }, []);
+
+  const handleRegistrationSuccess = (updatedUser) => {
+    setIsLoading(true);
+    checkDeviceAuthorization(updatedUser);
+  };
 
   // Loading state
   if (isLoading) {
@@ -103,7 +107,7 @@ function StaffDashboard() {
               </div>
             ) : (
               // No device registered - show device registration
-              <DeviceRegistration />
+              <DeviceRegistration onRegistrationSuccess={handleRegistrationSuccess} />
             )}
           </div>
         </div>

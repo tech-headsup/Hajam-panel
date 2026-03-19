@@ -7,6 +7,17 @@ import { setUserData } from '../../redux/Actions/UserAction';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+const getDefaultRouteForUser = (user) => {
+  const roleType = user?.roleData?.roleType;
+  const userType = user?.userType;
+
+  if (roleType === 'Staff' && userType === 'Staff') {
+    return '/staffdashboard';
+  }
+
+  return '/unit';
+};
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -113,7 +124,7 @@ const Login = () => {
           console.log("response", response);
           setSelectedUnit(newUser?.unitIds[0])
 
-          navigate('/unit')
+          navigate(getDefaultRouteForUser(newUser))
 
         } else {
           setErrors({
