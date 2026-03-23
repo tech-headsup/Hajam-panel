@@ -215,7 +215,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
                       >
                         {item.icon}
                       </div>
-                    </Tooltip>
+                    </Tooltip>//
                   ) : (
                     <div
                       className="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors"
