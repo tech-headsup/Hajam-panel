@@ -15,6 +15,8 @@ import {
   Package,
   Settings2,
   Warehouse,
+  IndianRupee,
+  ReceiptText,
   X,
 } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -50,6 +52,18 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
       label: 'Client Management',
       to: '/client',
       module: 'client',
+    },
+    {
+      icon: <IndianRupee className="w-5 h-5" />,
+      label: 'Quick Bill',
+      to: '/quicksale',
+      module: 'quicksale',
+    },
+    {
+      icon: <ReceiptText className="w-5 h-5" />,
+      label: 'Bill Management',
+      to: '/bills',
+      module: 'bills',
     },
     {
       icon: <Clock className="w-5 h-5" />,

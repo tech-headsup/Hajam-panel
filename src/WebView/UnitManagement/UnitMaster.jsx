@@ -117,20 +117,18 @@ function UnitMaster() {
             return;
         }
 
-        if (window.confirm(`Are you sure you want to delete unit "${row.unitName}"?`)) {
-            const deletePayload = { _id: row?._id };
+        const deletePayload = { _id: row?._id };
 
-            HitApi(deletePayload, deleteUnit).then((res) => {
-                if (res?.statusCode === 200) {
-                    toast.success('Unit deleted successfully!');
-                    fetchUnit();
-                } else {
-                    toast.error(res?.message || 'Failed to delete unit.');
-                }
-            }).catch(error => {
-                toast.error('Error occurred while deleting unit.');
-            });
-        }
+        HitApi(deletePayload, deleteUnit).then((res) => {
+            if (res?.statusCode === 200) {
+                toast.success('Unit deleted successfully!');
+                fetchUnit();
+            } else {
+                toast.error(res?.message || 'Failed to delete unit.');
+            }
+        }).catch(error => {
+            toast.error('Error occurred while deleting unit.');
+        });
     };
 
     const renderStatus = (status) => {

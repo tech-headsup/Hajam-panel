@@ -226,6 +226,7 @@ function ClientMaster() {
         {
             title: "Client Details",
             key: "name",
+            width: "240px",
             render: (value, row) => (
                 <div className="flex items-center">
                     {row.img ? (
@@ -251,6 +252,7 @@ function ClientMaster() {
         {
             title: "Contact",
             key: "phoneNumber",
+            width: "130px",
             render: (value, row) => (
                 <div>
                     <div className="text-sm font-medium text-gray-900">{value || 'N/A'}</div>
@@ -261,12 +263,14 @@ function ClientMaster() {
         {
             title: "Unit",
             key: "unitIds",
+            width: "130px",
             align: "center",
             render: (_, row) => renderUnitInfo(row.unitIds)
         },
         {
             title: "Financial Status",
             key: "financial",
+            width: "140px",
             render: (_, row) => (
                 <div className="space-y-1">
                     <div className="flex justify-between items-center">
@@ -287,6 +291,7 @@ function ClientMaster() {
         {
             title: "Visit History",
             key: "visits",
+            width: "120px",
             render: (_, row) => (
                 <div>
                     <div className="text-sm font-medium text-gray-900">
@@ -301,9 +306,10 @@ function ClientMaster() {
         {
             title: "Address",
             key: "address",
+            width: "170px",
             render: (value) => (
-                <div className="max-w-32">
-                    <span className="text-sm text-gray-900 truncate" title={value}>
+                <div className="max-w-[170px]">
+                    <span className="block truncate text-sm text-gray-900" title={value}>
                         {value || 'N/A'}
                     </span>
                 </div>
@@ -312,6 +318,7 @@ function ClientMaster() {
         {
             title: "Actions",
             key: "actions",
+            width: "110px",
             align: "center",
             render: (value, row) => {
                 const hasAnyPermission = canEditClients || canDeleteClients;

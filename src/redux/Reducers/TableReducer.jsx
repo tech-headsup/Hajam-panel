@@ -8,7 +8,14 @@ const initialState = {
 const TableReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PAGINATION:
-            return ({ ...state, pagination: action.value, timestamp: Date.now() })
+            return ({
+                ...state,
+                pagination: {
+                    ...initialState.pagination,
+                    ...(action.value || {})
+                },
+                timestamp: Date.now()
+            })
         default:
             return state;
     }

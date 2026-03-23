@@ -103,21 +103,19 @@ function UserMaster() {
             return;
         }
 
-        if (window.confirm(`Are you sure you want to delete ${row.name}?`)) {
-            const json = {
-                _id: row?._id
-            };
-            HitApi(json, deleteUser).then((res) => {
-                if (res?.message === 'User deleted successfully') {
-                    toast.success('User deleted successfully!');
-                    getUsers();
-                } else {
-                    toast.error('Failed to delete user. Please try again.');
-                }
-            }).catch(error => {
-                toast.error("Error deleting user. Please try again.");
-            });
-        }
+        const json = {
+            _id: row?._id
+        };
+        HitApi(json, deleteUser).then((res) => {
+            if (res?.message === 'User deleted successfully') {
+                toast.success('User deleted successfully!');
+                getUsers();
+            } else {
+                toast.error('Failed to delete user. Please try again.');
+            }
+        }).catch(error => {
+            toast.error("Error deleting user. Please try again.");
+        });
     };
 
 

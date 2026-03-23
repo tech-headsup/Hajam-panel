@@ -5,18 +5,18 @@ import { TrashIcon, PencilIcon, EyeIcon } from "@heroicons/react/24/outline";
 function DeleteButton({ onDelete, itemName = "user" }) {
   return (
     <span onClick={(e) => e.stopPropagation()}>
-      <Popover>
+      <Popover placement="left-start">
         <Popover.Trigger>
           <ActionIcon variant="outline" rounded="md" size="xs" className="border-gray-200 !w-7 !h-7">
             <TrashIcon className="w-3 h-3" />
           </ActionIcon>
         </Popover.Trigger>
-        <Popover.Content>
+        <Popover.Content className="z-50 !bg-white !border !border-gray-200 !rounded-xl !shadow-xl !p-0">
           {({ setOpen }) => (
-            <div className="w-56">
+            <div className="w-56 p-4">
               <Title as="h6">Delete {itemName}</Title>
-              <Text>Are you sure you want to delete this {itemName}?</Text>
-              <div className="flex justify-end gap-3 mb-1">
+              <Text className="mt-2 text-sm text-gray-600">Are you sure you want to delete this {itemName}?</Text>
+              <div className="mt-4 flex justify-end gap-3">
                 <Button
                   size="sm"
                   variant="outline"

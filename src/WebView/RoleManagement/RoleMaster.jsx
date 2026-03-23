@@ -150,49 +150,45 @@ function RoleMaster() {
             return;
         }
 
-        if (window.confirm(`Are you sure you want to delete role "${row.roleName}"?`)) {
-            // First, check if role is assigned to any users
-
-
-            const searchPayload = {
-                page: 1,
-                limit: 1,
-                search: {
-                    roleId: row?._id
-                }
-
+        // First, check if role is assigned to any users
+        const searchPayload = {
+            page: 1,
+            limit: 1,
+            search: {
+                roleId: row?._id
             }
 
-            HitApi(searchPayload, searchUser).then((searchRes) => {
-                // Check if the response has data (users assigned to this role)
-                if (searchRes?.data && searchRes.data.length > 0) {
-                    // Role is assigned to users, prevent deletion
-                    toast.error('This role is assigned to users, you can\'t delete it');
-                    return;
-                }
-
-                // No users assigned to this role, proceed with deletion
-                const deletePayload = {
-                    _id: row?._id
-                };
-
-                HitApi(deletePayload, deleteRole).then((deleteRes) => {
-                    if (deleteRes?.statusCode === 200) {
-                        toast.success('Role deleted successfully!');
-                        fetchRole();
-                    } else {
-                        toast.error(deleteRes?.message || 'Failed to delete role. Please try again.');
-                    }
-                }).catch(error => {
-                    console.error("Error deleting role:", error);
-                    toast.error('Error occurred while deleting role. Please try again.');
-                });
-
-            }).catch(error => {
-                console.error("Error checking role assignment:", error);
-                toast.error('Error occurred while checking role assignment. Please try again.');
-            });
         }
+
+        HitApi(searchPayload, searchUser).then((searchRes) => {
+            // Check if the response has data (users assigned to this role)
+            if (searchRes?.data && searchRes.data.length > 0) {
+                // Role is assigned to users, prevent deletion
+                toast.error('This role is assigned to users, you can\'t delete it');
+                return;
+            }
+
+            // No users assigned to this role, proceed with deletion
+            const deletePayload = {
+                _id: row?._id
+            };
+
+            HitApi(deletePayload, deleteRole).then((deleteRes) => {
+                if (deleteRes?.statusCode === 200) {
+                    toast.success('Role deleted successfully!');
+                    fetchRole();
+                } else {
+                    toast.error(deleteRes?.message || 'Failed to delete role. Please try again.');
+                }
+            }).catch(error => {
+                console.error("Error deleting role:", error);
+                toast.error('Error occurred while deleting role. Please try again.');
+            });
+
+        }).catch(error => {
+            console.error("Error checking role assignment:", error);
+            toast.error('Error occurred while checking role assignment. Please try again.');
+        });
     };
     const renderStatus = (status) => {
         if (status === undefined || status === null) return null;

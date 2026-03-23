@@ -15,6 +15,7 @@ function AttendanceMaster() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const ApiReducer = useSelector((state) => state.ApiReducer);
+    const currentUser = useSelector((state) => state.UserReducer?.user);
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -32,6 +33,9 @@ function AttendanceMaster() {
 
     const canReadAttendance = hasPermission('staff', 'read');
     const canMarkAttendance = hasPermission('staff', 'write');
+    const isSuperAdminUser =
+        currentUser?.roleData?.roleType === 'SuperAdmin' &&
+        currentUser?.userType === 'SuperAdmin';
 
     useEffect(() => {
         if (!Array.isArray(ApiReducer.apiJson)) {
@@ -49,9 +53,13 @@ function AttendanceMaster() {
         setError(null);
 
         try {
-            const searchObj = {
-                unitIds: getSelectedUnit()?._id
-            };
+            const searchObj = isSuperAdminUser
+                ? {
+                    unitIds: getSelectedUnit()?._id
+                }
+                : {
+                    _id: currentUser?._id
+                };
 
             const json = {
                 page: 1,
@@ -64,10 +72,19 @@ function AttendanceMaster() {
             if (res?.statusCode === 200) {
                 const usersData = res?.data?.docs || [];
                 const filteredUsers = usersData.filter(user =>
-                    user.userType !== 'superAdmin' &&
-                    user.userType !== 'SuperAdmin' &&
-                    user.userType !== 'superadmin' &&
-                    (user.status === 'active' || user.status === 'Active')
+                    (isSuperAdminUser
+                        ? (
+                            user.userType !== 'superAdmin' &&
+                            user.userType !== 'SuperAdmin' &&
+                            user.userType !== 'superadmin'
+                        )
+                        : user._id === currentUser?._id
+                    ) &&
+                    (
+                        user.status === 'active' ||
+                        user.status === 'Active' ||
+                        user._id === currentUser?._id
+                    )
                 );
                 dispatch(setApiJson(filteredUsers));
             } else {
@@ -99,12 +116,17 @@ function AttendanceMaster() {
             endDate.setHours(23, 59, 59, 999);
 
             const searchObj = {
-                unitIds: getSelectedUnit()?._id,
                 created: {
                     $gte: startDate.toISOString(),
                     $lte: endDate.toISOString()
                 }
             };
+
+            if (isSuperAdminUser) {
+                searchObj.unitIds = getSelectedUnit()?._id;
+            } else {
+                searchObj.userId = currentUser?._id;
+            }
 
             const json = {
                 page: 1,
@@ -127,11 +149,11 @@ function AttendanceMaster() {
     };
 
     useEffect(() => {
-        if (canReadAttendance) {
+        if (canReadAttendance && currentUser?._id) {
             getUsers();
             getAttendanceData(selectedDate);
         }
-    }, [canReadAttendance, selectedDate]);
+    }, [canReadAttendance, currentUser?._id, selectedDate]);
 
     const usersData = Array.isArray(ApiReducer.apiJson) ? ApiReducer.apiJson : [];
 
@@ -429,7 +451,7 @@ function AttendanceMaster() {
             <div className="flex justify-between items-start mb-6">
                 <PageHeader
                     title={'Attendance Management'}
-                    description={'Select an employee to mark their attendance'}
+                    description={isSuperAdminUser ? 'Select an employee to mark their attendance' : 'View your attendance records'}
                 />
 
                 <div className="flex items-center space-x-4">
@@ -494,7 +516,9 @@ function AttendanceMaster() {
                         <div className="col-span-full flex flex-col items-center justify-center h-64 text-center">
                             <User className="w-16 h-16 text-gray-400 mb-4" />
                             <h3 className="text-lg font-medium text-gray-900 mb-2">No Users Found</h3>
-                            <p className="text-gray-600">No employees found in this unit.</p>
+                            <p className="text-gray-600">
+                                {isSuperAdminUser ? 'No employees found in this unit.' : 'No attendance record found for your account.'}
+                            </p>
                         </div>
                     ) : (
                         filteredUsers.map((user) => {

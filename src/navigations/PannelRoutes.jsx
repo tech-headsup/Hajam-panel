@@ -23,6 +23,9 @@ import MasterService from '../WebView/MasterService/MasterService.jsx';
 import ServiceDashboard from '../WebView/ServiceDashboard/ServiceDashboard.jsx';
 import HairColorServices from '../WebView/HairColorManagement/HairColorServices.jsx';
 import HairColorManagement from '../WebView/HairColorManagement/HairColorManagement.jsx';
+import QuickSaleMaster from '../WebView/QuickSale/QuickSaleMaster.jsx';
+import BillMaster from '../WebView/BillsManagement/BillMaster.jsx';
+import BillDetails from '../WebView/BillsManagement/BillDetails.jsx';
 
 const getDefaultRouteForUser = () => {
   const user = getElevateUser();
@@ -51,6 +54,9 @@ function PannelRoutes() {
       <Route path="/client" element={<ClientMaster />} />
       <Route path="/client/add" element={<AddClient />} />
       <Route path="/client/edit/:id" element={<AddClient />} />
+      <Route path="/quicksale" element={<QuickSaleMaster />} />
+      <Route path="/bills" element={<BillMaster />} />
+      <Route path="/bills/:id" element={<BillDetails />} />
       <Route path="/attendance" element={<AttendanceMaster />} />
       <Route path="/staffdashboard" element={<StaffDashboard />} />
       <Route path="/staffdashboard/attendance" element={<StaffAttendence />} />

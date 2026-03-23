@@ -201,27 +201,22 @@ function Products() {
             return;
         }
 
-        const productName = row.productName || row.name || 'this product';
-        const confirmMessage = `Are you sure you want to delete "${productName}"? This action cannot be undone.`;
+        setIsLoading(true);
+        try {
+            const json = { _id: productId, id: productId };
+            const res = await HitApi(json, deleteProduct);
 
-        if (window.confirm(confirmMessage)) {
-            setIsLoading(true);
-            try {
-                const json = { _id: productId, id: productId };
-                const res = await HitApi(json, deleteProduct);
-
-                if (res?.success || res?.message?.includes('deleted') || res?.message?.includes('success')) {
-                    toast.success('Product deleted successfully!');
-                    await getProducts();
-                } else {
-                    throw new Error(res?.message || res?.error || 'Failed to delete product');
-                }
-            } catch (error) {
-                console.error("Error deleting product:", error);
-                toast.error(`Failed to delete product: ${error.message}`);
-            } finally {
-                setIsLoading(false);
+            if (res?.success || res?.message?.includes('deleted') || res?.message?.includes('success')) {
+                toast.success('Product deleted successfully!');
+                await getProducts();
+            } else {
+                throw new Error(res?.message || res?.error || 'Failed to delete product');
             }
+        } catch (error) {
+            console.error("Error deleting product:", error);
+            toast.error(`Failed to delete product: ${error.message}`);
+        } finally {
+            setIsLoading(false);
         }
     }, [getProducts, canDeleteProducts]);
 

@@ -150,24 +150,20 @@ function GeneralManagement() {
             return;
         }
 
-        const generalLabel = row.label || 'this general item';
-
-        if (window.confirm(`Are you sure you want to delete "${generalLabel}"?`)) {
-            const json = {
-                _id: row?._id
-            };
-            HitApi(json, deleteGeneralMaster).then((res) => {
-                if (res?.statusCode === 200) {
-                    toast.success('General item deleted successfully!');
-                    getGenerals();
-                } else {
-                    toast.error(res?.message || 'Failed to delete general item');
-                }
-            }).catch(error => {
-                console.error("Error deleting general:", error);
-                toast.error('Error occurred while deleting general item. Please try again.');
-            });
-        }
+        const json = {
+            _id: row?._id
+        };
+        HitApi(json, deleteGeneralMaster).then((res) => {
+            if (res?.statusCode === 200) {
+                toast.success('General item deleted successfully!');
+                getGenerals();
+            } else {
+                toast.error(res?.message || 'Failed to delete general item');
+            }
+        }).catch(error => {
+            console.error("Error deleting general:", error);
+            toast.error('Error occurred while deleting general item. Please try again.');
+        });
     };
 
 
