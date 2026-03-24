@@ -86,7 +86,7 @@ const SideBar = ({ isCollapsed, onToggleCollapse, setHideSideBar, onMobileClose,
           icon: <Package className="w-4 h-4" />,
           label: 'All Products',
           to: '/products',
-          module: 'product',
+          module: 'product',//
         },
         {
           icon: <Package className="w-4 h-4" />,
