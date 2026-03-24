@@ -159,12 +159,26 @@ function ServiceDashboard() {
     const aggregateData = (bills, currentStaffMap) => {
         const serviceMap = {};   // serviceName → { name, count, staffBreakdown: { staffId: count } }
         const staffAgg   = {};   // staffId     → { totalCount, services: { serviceName: count } }
+        const normalizeStaff = (staffValue) => {
+            if (!staffValue) return null;
+            if (typeof staffValue === 'object') {
+                return {
+                    id: staffValue._id || null,
+                    name: staffValue.name || null,
+                };
+            }
+            return {
+                id: staffValue,
+                name: currentStaffMap[staffValue]?.name || null,
+            };
+        };
 
         bills.forEach(bill => {
             if (!Array.isArray(bill.services)) return;
             bill.services.forEach(svc => {
                 const name    = svc.name  || 'Unknown Service';
-                const staffId = svc.staff || null;
+                const staff   = normalizeStaff(svc.staff);
+                const staffId = staff?.id || null;
                 const qty     = svc.quantity || 1;
 
                 // --- service aggregation ---
@@ -179,10 +193,13 @@ function ServiceDashboard() {
                 // --- staff aggregation ---
                 if (staffId) {
                     if (!staffAgg[staffId]) {
-                        staffAgg[staffId] = { staffId, totalCount: 0, services: {} };
+                        staffAgg[staffId] = { staffId, totalCount: 0, services: {}, fallbackName: staff?.name || null };
                     }
                     staffAgg[staffId].totalCount     += qty;
                     staffAgg[staffId].services[name]  = (staffAgg[staffId].services[name] || 0) + qty;
+                    if (!staffAgg[staffId].fallbackName && staff?.name) {
+                        staffAgg[staffId].fallbackName = staff.name;
+                    }
                 }
             });
         });
@@ -202,7 +219,7 @@ function ServiceDashboard() {
                 return {
                     ...s,
                     rank: idx + 1,
-                    name: staffInfo.name || 'Unknown Staff',   // searchUser returns .name
+                    name: staffInfo.name || s.fallbackName || 'Unknown Staff',
                     topServices,
                 };
             });
@@ -273,7 +290,6 @@ function ServiceDashboard() {
                 setServiceStats(serviceList);
                 setStaffStats(staffList);
                 setTotalServicesCount(total);
-                toast.success(`Loaded data for ${bills.length} bills`);
             } else {
                 setServiceStats([]); setStaffStats([]); setTotalServicesCount(0);
                 toast.error('Failed to fetch bills');

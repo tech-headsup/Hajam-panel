@@ -74,7 +74,7 @@ function Panel() {
       {/* Main Content */}
       <div
         className={`
-          flex-1 flex flex-col transition-all duration-300 ease-in-out w-full
+          flex-1 min-w-0 flex flex-col transition-all duration-300 ease-in-out
           ${!isMobile && !hideSideBar ? (isCollapsed ? 'ml-16' : 'ml-64') : ''}
         `}
       >
@@ -85,7 +85,7 @@ function Panel() {
           isMobile={isMobile}
           showMobileSidebar={showMobileSidebar}
         />
-        <div className={`${hideSideBar ? "p-0" : "p-5"} flex-1 overflow-auto`}>
+        <div className={`${hideSideBar ? "p-0" : "p-5"} flex-1 overflow-y-auto overflow-x-hidden`}>
           <PannelRoutes />
         </div>
       </div>

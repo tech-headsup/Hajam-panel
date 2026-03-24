@@ -117,7 +117,7 @@ function ProductList({ selectedProductBrand, selectedProductSubCategory, selecte
     };
 
     return (
-        <div className="flex-1 min-w-[400px] bg-white border rounded-lg overflow-hidden">
+        <div className="w-[420px] min-w-[420px] bg-white border rounded-lg overflow-hidden flex-shrink-0">
             <div className="p-3 border-b bg-gray-50">
                 <div className="flex items-center justify-between mb-2">
                     <h2 className="text-sm font-semibold text-gray-900">Products</h2>

@@ -35,42 +35,44 @@ function ProductMaster() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-5">
+        <div className="min-h-screen max-w-full overflow-x-hidden bg-gray-50 p-5">
             <div className="flex items-center justify-between mb-4">
                 <PageHeader title={'Master Products'} description={'Product Group / Category / SubCategory / Brand / Products Management'} />
             </div>
 
-            <div className="flex h-[calc(100vh-180px)] gap-1 overflow-x-auto">
-                <ProductGroupList
-                    selectedProductGroup={selectedProductGroup}
-                    onProductGroupClick={handleProductGroupClick}
-                />
+            <div className="w-full max-w-full overflow-x-auto pb-2">
+                <div className="flex min-w-max h-[calc(100vh-180px)] gap-1">
+                    <ProductGroupList
+                        selectedProductGroup={selectedProductGroup}
+                        onProductGroupClick={handleProductGroupClick}
+                    />
 
-                <ProductCategoryList
-                    selectedProductGroup={selectedProductGroup}
-                    selectedProductCategory={selectedProductCategory}
-                    onProductCategoryClick={handleProductCategoryClick}
-                />
+                    <ProductCategoryList
+                        selectedProductGroup={selectedProductGroup}
+                        selectedProductCategory={selectedProductCategory}
+                        onProductCategoryClick={handleProductCategoryClick}
+                    />
 
-                <ProductSubCategoryList
-                    selectedProductCategory={selectedProductCategory}
-                    selectedProductSubCategory={selectedProductSubCategory}
-                    onProductSubCategoryClick={handleProductSubCategoryClick}
-                    selectedProductGroup={selectedProductGroup}
-                />
+                    <ProductSubCategoryList
+                        selectedProductCategory={selectedProductCategory}
+                        selectedProductSubCategory={selectedProductSubCategory}
+                        onProductSubCategoryClick={handleProductSubCategoryClick}
+                        selectedProductGroup={selectedProductGroup}
+                    />
 
-                <ProductBrandList
-                    selectedProductGroup={selectedProductGroup}
-                    selectedProductBrand={selectedProductBrand}
-                    onProductBrandClick={handleProductBrandClick}
-                />
+                    <ProductBrandList
+                        selectedProductGroup={selectedProductGroup}
+                        selectedProductBrand={selectedProductBrand}
+                        onProductBrandClick={handleProductBrandClick}
+                    />
 
-                <ProductList
-                    selectedProductBrand={selectedProductBrand}
-                    selectedProductSubCategory={selectedProductSubCategory}
-                    selectedProductCategory={selectedProductCategory}
-                    selectedProductGroup={selectedProductGroup}
-                />
+                    <ProductList
+                        selectedProductBrand={selectedProductBrand}
+                        selectedProductSubCategory={selectedProductSubCategory}
+                        selectedProductCategory={selectedProductCategory}
+                        selectedProductGroup={selectedProductGroup}
+                    />
+                </div>
             </div>
         </div>
     );
